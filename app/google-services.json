@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "753396480719",
+    "firebase_url": "https://gopromos-br.firebaseio.com",
+    "project_id": "gopromos-br",
+    "storage_bucket": "gopromos-br.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:753396480719:android:168218e6bbb26e9a",
+        "android_client_info": {
+          "package_name": "br.com.gopromos.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "753396480719-hpbas55damtgolnmsv2mnj2jjj5rhtb4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6sqZpKnek-gdOs7iOPfN02QJU_03ykC0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

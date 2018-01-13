@@ -1,0 +1,8 @@
+include ':app',
+        ':uava',
+        ':graph-api',
+        ':api',
+        ':logger',
+		':interactors',
+		':android-utils',
+        ':analytics'

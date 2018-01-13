@@ -1,0 +1,74 @@
+apply from: rootProject.file('tools/predex.gradle')
+
+apply plugin: "org.owasp.dependencycheck"
+apply plugin: "com.github.kt3k.coveralls"
+
+buildscript {
+	apply from: rootProject.file('versions.gradle')
+
+	ext.fabricGradle = '1.25.1'
+
+	addRepos(repositories)
+
+	dependencies {
+		classpath "com.android.tools.build:gradle:3.0.1"
+		classpath "com.google.gms:google-services:3.1.0"
+		classpath "io.fabric.tools:gradle:$fabricGradle"
+		classpath "org.owasp:dependency-check-gradle:2.1.1"
+		classpath "org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.1"
+	}
+}
+
+ext.isCI = System.getenv("CI") == "true"
+ext.cores = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
+
+allprojects {
+	addRepos(repositories)
+	apply from: rootProject.file("tools/compile.gradle")
+}
+
+subprojects { subproject ->
+	apply plugin: 'jacoco'
+	apply from: rootProject.file('tools/jacoco.gradle')
+	apply from: rootProject.file('tools/linters.gradle')
+
+	afterEvaluate { Project project ->
+		if (project.findProperty('android')) {
+			android {
+				compileOptions {
+					sourceCompatibility JavaVersion.VERSION_1_8
+					targetCompatibility JavaVersion.VERSION_1_8
+				}
+
+				compileSdkVersion 27
+				buildToolsVersion "27.0.1"
+
+				defaultConfig {
+					minSdkVersion 19
+					targetSdkVersion 27
+					versionCode 1
+					versionName "1.0"
+				}
+			}
+		}
+	}
+}
+
+task clean(type: Delete) {
+	delete rootProject.buildDir
+}
+
+task printBuildScriptClasspath {
+	doLast {
+		println project.buildscript.configurations.classpath.asPath
+	}
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '4.4.1'
+	distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
+}
+
+coveralls {
+	jacocoReportPath "$rootDir/app/build/reports/jacoco/fullCoverageReport/fullCoverageReport.xml"
+}

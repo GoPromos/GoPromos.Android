@@ -1,0 +1,10 @@
+apply plugin: 'com.android.library'
+
+android {}
+
+final versions = rootProject.ext.versions
+
+dependencies {
+    testImplementation "junit:junit:$versions.junit"
+	testImplementation "org.robolectric:robolectric:$versions.robolectric"
+}
